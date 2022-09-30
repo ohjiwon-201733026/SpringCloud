@@ -26,18 +26,20 @@ import java.util.UUID;
 public class OrderController {
     Environment env;
     OrderService orderService;
-//    KafkaProducer kafkaProducer;
+    KafkaProducer kafkaProducer;
 
 //    OrderProducer orderProducer;
 
-//    @Autowired
-//    public OrderController(Environment env, OrderService orderService,
-//                           KafkaProducer kafkaProducer, OrderProducer orderProducer) {
-//        this.env = env;
-//        this.orderService = orderService;
-//        this.kafkaProducer = kafkaProducer;
+    @Autowired
+    public OrderController(Environment env, OrderService orderService,
+                           KafkaProducer kafkaProducer
+//            , OrderProducer orderProducer
+    ) {
+        this.env = env;
+        this.orderService = orderService;
+        this.kafkaProducer = kafkaProducer;
 //        this.orderProducer = orderProducer;
-//    }
+    }
 
     @Autowired
     public OrderController(Environment env, OrderService orderService) {

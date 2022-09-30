@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -35,6 +36,8 @@ public class UserServiceImpl implements UserService{
     RestTemplate restTemplate;
 
     OrderServiceClient orderServiceClient;
+
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder,
@@ -82,15 +85,15 @@ public class UserServiceImpl implements UserService{
 
         /* Using a feign client */
         /* Feign exception handling */
-        List<ResponseOrder> ordersList = null;
-        try {
-            ordersList = orderServiceClient.getOrders(userId);
-        } catch (FeignException ex) {
-            log.error(ex.getMessage());
-        }
+//        List<ResponseOrder> ordersList = null;
+//        try {
+//            ordersList = orderServiceClient.getOrders(userId);
+//        } catch (FeignException ex) {
+//            log.error(ex.getMessage());
+//        }
 
         /* ErrorDecoder */
-//        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
+        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
 //        log.info("Before call orders microservice");
 //        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
 //        List<ResponseOrder> ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
